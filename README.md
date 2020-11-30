@@ -18,7 +18,7 @@ Build a lock-based concurrency control system, including:
 
 4. Execute transactions according to the given order and test.××××××[HAN & ZEKAI]
 
-5. Use a two-stage locking mechanism for concurrency control to check whether the state of the database after the transaction is executed is consistent with a certain sequential execution state. ?????? [Yimin tried to run original 2pl method part codes but failed. (Program was terminated immediately.) I guess because we generate 4 transactions instead of 3 in the original one. Some more codes should be edited but got no idea.]
+5. Use a two-stage locking mechanism for concurrency control to check whether the state of the database after the transaction is executed is consistent with a certain sequential execution state. ?????? [ Yimin tried to run original 2pl method part codes but failed. (Program was terminated immediately.) {I guess because we generate 4 transactions instead of 3 in the original one. Some more codes should be edited but got no idea. Kyle and I will try to figure it out.} ]
 
 6. Forms of deadlock prevention.××××××[HAN & ZEKAI]
 
