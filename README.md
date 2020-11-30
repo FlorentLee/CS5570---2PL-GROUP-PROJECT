@@ -14,15 +14,15 @@ Build a lock-based concurrency control system, including:
 
 2. Customize the database size, which is 6 in this experiment. When each transaction specifically operates, those data objects will also be randomly generated. Please note: not every transaction will access every data item in the database.√√√√√√
 
-3. Execute 4 randomly generated transactions, each transaction is executed in sequence, and the 24 final database states are recorded. √√√√√√ [UPLAODED IN TESTLOG document]
+3. Execute 4 randomly generated transactions, each transaction is executed in sequence, and the 24 final database states are recorded. √√√√√√ [YIMIN UPLAODED IT IN TESTLOG]
 
-4. Execute transactions according to the given order and test.××××××
+4. Execute transactions according to the given order and test.××××××[HAN & ZEKAI]
 
-5. Use a two-stage locking mechanism for concurrency control to check whether the state of the database after the transaction is executed is consistent with a certain sequential execution state. ?????? [I tried to run original 2pl method part codes but failed. (Program was terminated immediately.) I guess because we generate 4 transactions instead of 3 in the original one. Some more codes should be edited but got no idea.]
+5. Use a two-stage locking mechanism for concurrency control to check whether the state of the database after the transaction is executed is consistent with a certain sequential execution state. ?????? [Yimin tried to run original 2pl method part codes but failed. (Program was terminated immediately.) I guess because we generate 4 transactions instead of 3 in the original one. Some more codes should be edited but got no idea.]
 
-6. Forms of deadlock prevention.××××××
+6. Forms of deadlock prevention.××××××[HAN & ZEKAI]
 
-7. Try to implement different isolation levels.××××××
+7. Try to implement different isolation levels.××××××[ALL]
 
 一、实验目的
 
