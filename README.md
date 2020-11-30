@@ -10,19 +10,19 @@ B. The content of the experiment
 
 Build a lock-based concurrency control system, including:
 
-1. Randomly generate 4 concurrently executed transactions, each transaction is the following sequence of operations T={begin-transaction}r(x1)w(x1, Val1) r(x2)w(x2, Val2)...{commit }. Among them, Val1, Val2, etc. are randomly generated integers; the objects of transaction read and write operations x1, x2... come from the database DB={x1, x2, x3, …}.
+1. Randomly generate 4 concurrently executed transactions, each transaction is the following sequence of operations T={begin-transaction}r(x1)w(x1, Val1) r(x2)w(x2, Val2)...{commit }. Among them, Val1, Val2, etc. are randomly generated integers; the objects of transaction read and write operations x1, x2... come from the database DB={x1, x2, x3, …}.√√√√√√
 
-2. Customize the database size, which is 6 in this experiment. When each transaction specifically operates, those data objects will also be randomly generated. Please note: not every transaction will access every data item in the database.
+2. Customize the database size, which is 6 in this experiment. When each transaction specifically operates, those data objects will also be randomly generated. Please note: not every transaction will access every data item in the database.√√√√√√
 
-3. Execute 4 randomly generated transactions, each transaction is executed in sequence, and the 24 final database states are recorded.
+3. Execute 4 randomly generated transactions, each transaction is executed in sequence, and the 24 final database states are recorded.√√√√√√
 
-4. Execute transactions according to the given order and test.
+4. Execute transactions according to the given order and test.××××××
 
-5. Use a two-stage locking mechanism for concurrency control to check whether the state of the database after the transaction is executed is consistent with a certain sequential execution state.
+5. Use a two-stage locking mechanism for concurrency control to check whether the state of the database after the transaction is executed is consistent with a certain sequential execution state.??????
 
-6. Forms of deadlock prevention.
+6. Forms of deadlock prevention.××××××
 
-7. Try to implement different isolation levels.
+7. Try to implement different isolation levels.××××××
 
 一、实验目的
 
