@@ -1,0 +1,40 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
+public class Operate {
+    private int Ti;
+    private int Di;
+    private int type;
+
+    public Operate(int ti, int di, int type) {
+        this.Ti = ti;
+        this.Di = di;
+        this.type = type;
+    }
+
+    public int getTi() {
+        return this.Ti;
+    }
+
+    public void setTi(int ti) {
+        this.Ti = ti;
+    }
+
+    public int getDi() {
+        return this.Di;
+    }
+
+    public void setDi(int di) {
+        this.Di = di;
+    }
+
+    public int getType() {
+        return this.type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+}
