@@ -14,11 +14,11 @@ Build a lock-based concurrency control system, including:
 
 2. Customize the database size, which is 6 in this experiment. When each transaction specifically operates, those data objects will also be randomly generated. Please note: not every transaction will access every data item in the database.√√√√√√
 
-3. Execute 4 randomly generated transactions, each transaction is executed in sequence, and the 24 final database states are recorded.√√√√√√
+3. Execute 4 randomly generated transactions, each transaction is executed in sequence, and the 24 final database states are recorded. √√√√√√ [UPLAODED IN TESTLOG document]
 
 4. Execute transactions according to the given order and test.××××××
 
-5. Use a two-stage locking mechanism for concurrency control to check whether the state of the database after the transaction is executed is consistent with a certain sequential execution state.??????
+5. Use a two-stage locking mechanism for concurrency control to check whether the state of the database after the transaction is executed is consistent with a certain sequential execution state. ?????? [I tried to run original 2pl method part codes but failed. (Program was terminated immediately.) I guess because we generate 4 transactions instead of 3 in the original one. Some more codes should be edited but got no idea.]
 
 6. Forms of deadlock prevention.××××××
 
@@ -37,7 +37,7 @@ Build a lock-based concurrency control system, including:
 
 2. 数据库大小自定义，本实验中为6。当每个事务具体操作时，那些数据对象也会随机生成。请注意：不是每个事务都会访问数据库内的每个数据项。
 
-3. 执行随机生成的4个事务，每个事务内部按照顺序执行，记录下全排列的24种最终数据库状态。
+3. 执行随机生成的4个事务，每个事务内部按照顺序执行，记录下全排列的24种最终数据库状态。[已上传至testlog文档]
 
 4. 根据给定次序执行事务，进行测试。
 
