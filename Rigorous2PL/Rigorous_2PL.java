@@ -1,8 +1,6 @@
 
-import java.io.BufferedReader;
-import java.io.File;
+
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
@@ -25,17 +23,16 @@ public class Rigorous_2PL {
     public ArrayList<String> Total_Ordering;
 
     // Reading the text from the given input file
-    public void readFile() throws IOException, FileNotFoundException, StringIndexOutOfBoundsException {
+    public void Scheduler_Start() throws IOException, FileNotFoundException, StringIndexOutOfBoundsException {
 
         TransactionGenerator TG = new TransactionGenerator();
         Total_Ordering = TG.Make_Total_Ordering(TG.generateThreeTransation());
 
-        // Declaring a string to store the each text from the input file
 
         // Initializing the time stamp for the transactions
         int timeStamp = 0;
 
-        // Reading every text from the given input file
+        // Iterate Total_Ordering make Scheduler work
         for (String text: Total_Ordering) {
 
             if (text.charAt(0) == 'b') {
@@ -60,7 +57,7 @@ public class Rigorous_2PL {
         Transaction_Table t_beginTransaction = new Transaction_Table();
         t_beginTransaction.addBeginRecord(transactionID, timeStamp);
         transactionTablehashmap.put(transactionID, t_beginTransaction);
-        System.out.println("Create a record for" + " " + transactionID + " " + "in the transaction table");
+        System.out.println( transactionID + " " + "Start");
 
     }
 
@@ -592,7 +589,7 @@ public class Rigorous_2PL {
     // Main Method
     public static void main(String args[]) throws FileNotFoundException, IOException, StringIndexOutOfBoundsException {
         Rigorous_2PL obj = new Rigorous_2PL();
-        obj.readFile();
+        obj.Scheduler_Start();
 
     }
 }

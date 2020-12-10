@@ -12,22 +12,12 @@ public class TransactionGenerator {
     private LinkedList Transaction;
     private ArrayList Transaction_list = new ArrayList();
     private int Total_Operation_num=0;
-
     private int random_num;
-
-    private ArrayList Scheduler;
-
-
-
-
-
+    private ArrayList Total_Orders;
     private Random random = new Random();
-
-    private int Transaction_num = 3;
+    private int Transaction_num = 3;  // We can change the Transaction numbers
 
     public ArrayList generateThreeTransation(){
-
-
         for(int i=0; i<Transaction_num; i++){
 
             Transaction = new LinkedList();
@@ -38,15 +28,12 @@ public class TransactionGenerator {
 
                 if(k==0){
                     type = "b" + (i + 1);
-
                 }
                 else if(k == n-1){
                     type = "e" + (i +1);
                 }
                 else{
                     int type_num = Math.abs(random.nextInt())%2;
-
-
                     data_item = DB[Math.abs(random.nextInt())%DB.length];
                     if(type_num == 0){
                         type = "r" + (i + 1) + "(" +data_item +")";
@@ -61,64 +48,48 @@ public class TransactionGenerator {
                             type = "w" + (i + 1) + "(" +data_item +")";
                         }
                     }
-
-
                 }
                 Transaction.add(type);
-
             }
             Transaction_list.add(Transaction);
-
-
         }
 //        System.out.println(Transaction_list);
         return Transaction_list;
-
     }
 
     public ArrayList Make_Total_Ordering(ArrayList transaction_list){
-        Scheduler = new ArrayList();
+        Total_Orders = new ArrayList();
         LinkedList<String> trans_list;
         int trans_num;
-
-
-        System.out.println(transaction_list.size());
+        System.out.println(transaction_list.size() + " Transactions are generated");
         for(int i=0; i<Transaction_num; i++){
             trans_list = (LinkedList<String>) transaction_list.get(i);
-            System.out.println(trans_list);
-
+            System.out.println("T"+ (i+1) + " : "+ trans_list);
             trans_num = random.nextInt(trans_list.size());
-
-
             while(trans_num <2){ //to make a schedule with beginig and at least one transaction
                 trans_num = random.nextInt(trans_list.size());
             }
             for(int k=0; k<trans_num; k++){
-
-                Scheduler.add(trans_list.removeFirst());
+                Total_Orders.add(trans_list.removeFirst());
             }
-
-
         }
-
-        System.out.println(Total_Operation_num);
-
-        while(Scheduler.size() != Total_Operation_num){
-
+        while(Total_Orders.size() != Total_Operation_num){
             random_num = random.nextInt(3);
-
             try{
                 trans_list =  (LinkedList<String>)transaction_list.get(random_num);
-                Scheduler.add(trans_list.removeFirst());
+                Total_Orders.add(trans_list.removeFirst());
             }catch (NoSuchElementException e){
 
             }
-
         }
 //        System.out.println(transaction_list);
-//        System.out.println(Scheduler);
+//        System.out.println(Total_Orders);
+        System.out.println("--------------------------------------------------------------------------------------------------------------------");
+        System.out.println("Transaction Manager sends Individual transactions from a random order While preserve individual transaction ordering");
+        System.out.println("Total_Ordering : " + Total_Orders);
+        System.out.println("--------------------------------------------------------------------------------------------------------------------");
 
-        return Scheduler;
+        return Total_Orders;
     }
 
 
