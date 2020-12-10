@@ -22,39 +22,35 @@ public class Rigorous_2PL {
     // committed
     public static ArrayList<String> data_item_to_process = new ArrayList<String>();
 
+    public ArrayList<String> Total_Ordering;
+
     // Reading the text from the given input file
     public void readFile() throws IOException, FileNotFoundException, StringIndexOutOfBoundsException {
 
+        TransactionGenerator TG = new TransactionGenerator();
+        Total_Ordering = TG.Make_Total_Ordering(TG.generateThreeTransation());
+
         // Declaring a string to store the each text from the input file
-        String text;
+
         // Initializing the time stamp for the transactions
         int timeStamp = 0;
-        try {
-            // Converting the file into file object
-            File file = new File(
-                    "C:\\Users\\sjk37\\Desktop\\Rigorous\\input.txt");
-            // Reading the text from the given file
-            BufferedReader read = new BufferedReader(new FileReader(file));
-            // Reading every text from the given input file
-            while ((text = read.readLine()) != null) {
-                if (text.charAt(0) == 'b') {
-                    begin_transaction("T" + text.substring(1, 2), ++timeStamp);
-                } else if (text.charAt(0) == 'r') {
-                    read_lock("T" + text.substring(1, 2), text.substring(text.indexOf('(') + 1, text.indexOf(')')));
-                } else if (text.charAt(0) == 'w') {
-                    write_lock("T" + text.substring(1, 2), text.substring(text.indexOf('(') + 1, text.indexOf(')')));
 
-                } else if (text.charAt(0) == 'e') {
-                    end_transaction("T" + text.charAt(1));
-                }
+        // Reading every text from the given input file
+        for (String text: Total_Ordering) {
 
+            if (text.charAt(0) == 'b') {
+                begin_transaction("T" + text.substring(1, 2), ++timeStamp);
+            } else if (text.charAt(0) == 'r') {
+                read_lock("T" + text.substring(1, 2), text.substring(text.indexOf('(') + 1, text.indexOf(')')));
+            } else if (text.charAt(0) == 'w') {
+                write_lock("T" + text.substring(1, 2), text.substring(text.indexOf('(') + 1, text.indexOf(')')));
+
+            } else if (text.charAt(0) == 'e') {
+                end_transaction("T" + text.charAt(1));
             }
-            read.close();
+
         }
 
-        catch (StringIndexOutOfBoundsException e) {
-            System.out.println(e);
-        }
 
     }
 
@@ -452,6 +448,8 @@ public class Rigorous_2PL {
                 break;
             }
         }
+
+
         releaseLock(tID);
         process_waiting_operations();
 
@@ -478,11 +476,14 @@ public class Rigorous_2PL {
 
             LockTable lock1 = locktablehashmap.get(key);
             if (lock1.transactionID_holding_lock.contains(tID)) {
+                System.out.println(tID + " relased lock on "+ key);
                 if (lock1.transactionID_holding_lock.size() == 1) {
                     lock1.transactionID_holding_lock.remove(tID);
                     if (lock1.lock_Status == "read-locked") {
                         lock1.no_of_reads = lock1.no_of_reads - 1;
+
                     }
+
                     lock1.lock_Status = "Unlocked";
                     lock1.lock_state = " ";
                     data_item_to_process.add(lock1.item_name);
@@ -491,6 +492,7 @@ public class Rigorous_2PL {
                     if (lock1.lock_Status == "read-locked") {
                         lock1.no_of_reads = lock1.no_of_reads - 1;
                     }
+
                     data_item_to_process.add(lock1.item_name);
                 }
 
