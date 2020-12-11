@@ -10,19 +10,17 @@ public class Rigorous_2PL {
     private Random random = new Random();
 
 
-    // Declaring Hash Map for the Transaction Table
+    // Declaring Hash Map for the Transaction Table key value is transaction ID
     public static HashMap<String, Transaction_Table> transactionTablehashmap = new HashMap<String, Transaction_Table>();
-    // Declaring Hash Map for the Lock Table
+    // Declaring Hash Map for the Lock Table key value is data item
     public static HashMap<String, LockTable> locktablehashmap = new HashMap<String, LockTable>();
     // Declaring ArrayList for the List of operations waiting
     public static ArrayList<String> list_of_operation_waiting = new ArrayList<String>();
     // Declaring ArrayList for the data item to process when transaction is
     // committed
     public static ArrayList<String> data_item_to_process = new ArrayList<String>();
-
     public ArrayList<String> Total_Ordering;
 
-    // Reading the text from the given input file
     public void Scheduler_Start() throws IOException, FileNotFoundException, StringIndexOutOfBoundsException {
 
         TransactionGenerator TG = new TransactionGenerator();
@@ -264,7 +262,7 @@ public class Rigorous_2PL {
                                     transactionTablehashmap.put(tt_writeLock.transaction_ID, tt_writeLock);
 
                                     System.out.println(transactionID + " "
-                                            + "has been blocked as per wound wait protocol for the data item " + " "
+                                            + "has been blocked as per wound wait protocol for the data item "
                                             + data_item + " based on the higher timestamp");
                                 }
                             }
@@ -302,6 +300,7 @@ public class Rigorous_2PL {
                                     int TS_get = tS_holding_locks.get(j);
                                     String trans_to_abort = timeStampTablehashmap.get(TS_get);
                                     Transaction_Table abortTrans = transactionTablehashmap.get(trans_to_abort);
+                                    System.out.println(trans_to_abort + " is aborted by Wound wait protocol(Lock Upgrade)");
 
                                     abort_transaction(abortTrans);
                                 }
@@ -330,7 +329,7 @@ public class Rigorous_2PL {
                                     if (!lock1.transactionID_waiting_for_lock.contains(transactionID)) {
                                         lock1.transactionID_waiting_for_lock.add(transactionID);
                                         System.out.println(transactionID + " "
-                                                + "has been blocked as per wound wait protocol for the data item " + " "
+                                                + "has been blocked as per wound wait protocol for the data item "
                                                 + data_item + " based on higher timestamp");
                                     }
                                     transactionTablehashmap.put(tt_writeLock.transaction_ID, tt_writeLock);
@@ -352,8 +351,11 @@ public class Rigorous_2PL {
                     } else if (lock1.lock_state.equals("write-locked")) {
                         String Lock_tid = tID_holding_lock.get(0);
                         holding_Trans_TS = transactionTablehashmap.get(Lock_tid).timeStamp;
+                        Transaction_Table hd_writeLock = transactionTablehashmap.get(Lock_tid);
                         if (requesting_Trans_TS < holding_Trans_TS) {
-                            abort_transaction(tt_writeLock);
+                            //Modify this part
+                            System.out.println(Lock_tid + " is aborted based on Wound wait protocol");
+                            abort_transaction(hd_writeLock);
                             lock1.lock_state = "write-locked";
                             lock1.transactionID_holding_lock.add(transactionID);
                             lock1.lock_Status = "Locked";
@@ -361,6 +363,7 @@ public class Rigorous_2PL {
                                 tt_writeLock.list_of_items_locked.add(data_item);
                                 transactionTablehashmap.put(tt_writeLock.transaction_ID, tt_writeLock);
                             }
+
                             System.out.println(transactionID + " acquires write lock on " + data_item);
 
                         } else {
@@ -446,7 +449,6 @@ public class Rigorous_2PL {
             }
         }
 
-
         releaseLock(tID);
         process_waiting_operations();
 
@@ -459,6 +461,7 @@ public class Rigorous_2PL {
         commit_trans.list_of_items_locked.clear();
         String tID = commit_trans.transaction_ID;
         System.out.println(tID + " is committed");
+
         releaseLock(tID);
         process_waiting_operations();
 
@@ -468,7 +471,7 @@ public class Rigorous_2PL {
     // To implement Rigorous 2pl
     // Method to implement releasing all the locks held by the transaction
     public static void releaseLock(String tID) {
-
+        // Iterate through locktable using Key values
         for (String key : locktablehashmap.keySet()) {
 
             LockTable lock1 = locktablehashmap.get(key);
@@ -476,23 +479,13 @@ public class Rigorous_2PL {
                 System.out.println(tID + " relased lock on "+ key);
                 if (lock1.transactionID_holding_lock.size() == 1) {
                     lock1.transactionID_holding_lock.remove(tID);
-                    if (lock1.lock_Status == "read-locked") {
-                        lock1.no_of_reads = lock1.no_of_reads - 1;
-
-                    }
-
                     lock1.lock_Status = "Unlocked";
                     lock1.lock_state = " ";
                     data_item_to_process.add(lock1.item_name);
                 } else if (lock1.transactionID_holding_lock.size() > 1) {
                     lock1.transactionID_holding_lock.remove(tID);
-                    if (lock1.lock_Status == "read-locked") {
-                        lock1.no_of_reads = lock1.no_of_reads - 1;
-                    }
-
                     data_item_to_process.add(lock1.item_name);
                 }
-
             }
             if (lock1.transactionID_waiting_for_lock.contains(tID)) {
                 lock1.transactionID_waiting_for_lock.remove(tID);
@@ -514,6 +507,7 @@ public class Rigorous_2PL {
 
             String operation_to_process = list_of_operation_waiting.get(j);
             String transid = operation_to_process.substring(1, 2);
+
             String transOfOpToProcess = "T" + transid;
             Transaction_Table transTable = transactionTablehashmap.get(transOfOpToProcess);
             boolean exitLoop = false;

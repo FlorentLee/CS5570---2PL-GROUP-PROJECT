@@ -20,8 +20,7 @@ public class TransactionGenerator {
     public ArrayList generateThreeTransation(){
         for(int i=0; i<Transaction_num; i++){
 
-            Transaction = new LinkedList();
-
+            Transaction = new LinkedList(); // To implement FIFO list
             int n = Math.abs(random.nextInt())%3+5; //Agree that each transaction should operate at least three database elements in the database
             Total_Operation_num += n;
             for(int k =0;k<n;k++ ){
@@ -82,8 +81,8 @@ public class TransactionGenerator {
 
             }
         }
-//        System.out.println(transaction_list);
-//        System.out.println(Total_Orders);
+//      System.out.println(transaction_list);
+//      System.out.println(Total_Orders);
         System.out.println("--------------------------------------------------------------------------------------------------------------------");
         System.out.println("Transaction Manager sends Individual transactions from a random order While preserve individual transaction ordering");
         System.out.println("Total_Ordering : " + Total_Orders);

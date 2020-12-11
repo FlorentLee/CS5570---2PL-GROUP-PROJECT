@@ -10,7 +10,7 @@ public class LockTable {
     String lock_Status;
     int no_of_reads = 0;
 
-    // Default Constructor
+    // Constructor
     public LockTable() {
 
     }
